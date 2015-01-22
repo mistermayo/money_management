@@ -1,0 +1,61 @@
+<h1>Expense Organizer</h1>
+
+<div>
+  <div>
+    <h3>Add expenses:</h3>
+    <form action="/" method="post">
+      <label for="description">Give a description:</label>
+      <input id="description" name="description" type="text" placeholder="Lunch" autofocus>
+
+      <label for="cost">Enter the cost:</label>
+      <input id="cost" name="cost" type="text">
+
+      <label for="date">Enter the date:</label>
+      <input id="date" name="date" type="text">
+
+      <button type="submit">Add expense</button>
+    </form>
+  </div>
+
+  <div>
+    <h3>Add categories:</h3>
+    <form action="/" method="post">
+      <label for="category_name">Give a name:</label>
+      <input id="category_name" name="category_name" type="text">
+
+      <button type="submit">Add category</button>
+    </form>
+  </div>
+
+  <div>
+    <h3>Expenses:</h3>
+    <% if Expense.all().any?() %>
+      <ul>
+        <% Expense.all().each() do |expense| %>
+          <li><a href="/expenses/<%= expenses.id() %>"><%= expense.description() %></a></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>You haven't added any expenses yet!</p>
+    <% end %>
+  </div>
+
+  <div>
+    <h3>Categories:</h3>
+      <% if Category.all().any?() %>
+        <ul>
+          <% Category.all().each() do |category| %>
+            <li><a href="/categories/<%= categories.id() %>"><%= category.category_name() %></a></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>You haven't added any categories yet!</p>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+<hr>
+
+<h6><a href="/add_remove">[Click Here to Add or Remove Expenses]</a></h6>

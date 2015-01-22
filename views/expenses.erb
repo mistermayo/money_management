@@ -1,0 +1,32 @@
+<% category = Category.find(@id) %>
+<h1><%= category.category_name() %></h1>
+
+<h3>This category includes the following expenses:</h3>
+<% if category.expenses().any?() %>
+  <ul>
+  <% category.expenses().each() do |expense| %>
+    <li><a href="/expenses/<%= expense.id() %>"><%= expense.description() %>, <%= expense.cost() %> <%= expense.date() %> </a></li>
+  <% end %>
+  </ul>
+<% else %>
+  This category is empty
+<% end %>
+
+<hr>
+
+<form action="/expenses/<%= @id %>" method="POST">
+  <div class="form-group">
+    <label class="form-label" for="category_id">Add category:</label>
+    <select class="form-control" id="category_id" name="category_id">
+      <option value='' disabled selected style='display:none'>Please Choose</option>
+      <% Category.all().each() do |category| %>
+        <% if ! expense.categories().include?(category) %>
+          <option value="<%= category.id() %>"><%= category.category_name() %></option>
+        <% end %>
+      <% end %>
+    </select>
+  </div>
+  <button type="submit" class="button">Add Category</button>
+</form>
+
+<a href="/">Back</a>
