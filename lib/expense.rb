@@ -38,4 +38,23 @@ class Expense
     end
     @found_expense
   end
+
+  define_method(:add_category_to_expense) do |category|
+    existing_category = DB.exec("SELECT * FROM expenses_categories WHERE expenses_id = #{self.id()} AND categories_id = #{category.id()};")
+    if ! existing_category.first()
+      DB.exec("INSERT INTO expenses_categories (expenses_id, categories_id) VALUES (#{self.id()}, #{category.id()});")
+    end
+  end
+
+  define_method(:categories) do
+    categories = []
+      returned_categories = DB.exec("SELECT categories.* FROM categories JOIN expenses_categories ON (categories.id = expenses_categories.categories_id) JOIN expenses ON (expenses.id = expenses_categories.expenses_id) WHERE expenses.id = #{self.id()};")
+      returned_categories.each() do |category_hash|
+        category_name = category_hash['category_name']
+        id = category_hash['id'].to_i()
+        categories.push(Category.new({:category_name => category_name, :id => id}))
+      end
+    categories
+  end
+
 end

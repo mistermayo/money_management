@@ -54,4 +54,18 @@ describe(Expense) do
       expect(Expense.find(expense_1.id())).to(eq(expense_1))
     end
   end
+
+  describe('#categories') do
+    it("returns array of categroies that belong to a specified expense") do
+      test_category = Category.new({:category_name => "food", :id => nil})
+      test_category.save()
+      test_category2 = Category.new({:category_name => "restaurant", :id => nil})
+      test_category2.save()
+      expense_1 = Expense.new({:description => "lunch", :cost => "3.5", :date => "2011-01-08", :id => nil})
+      expense_1.save()
+      expense_1.add_category_to_expense(test_category)
+      expense_1.add_category_to_expense(test_category2)
+      expect(expense_1.categories()).to(eq([test_category, test_category2]))
+    end
+  end
 end
