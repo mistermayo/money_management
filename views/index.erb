@@ -3,7 +3,7 @@
 <div>
   <div>
     <h3>Add expenses:</h3>
-    <form action="/" method="post">
+    <form action="/expenses" method="post">
       <label for="description">Give a description:</label>
       <input id="description" name="description" type="text" placeholder="Lunch" autofocus>
 
@@ -19,7 +19,7 @@
 
   <div>
     <h3>Add categories:</h3>
-    <form action="/" method="post">
+    <form action="/categories" method="post">
       <label for="category_name">Give a name:</label>
       <input id="category_name" name="category_name" type="text">
 
@@ -27,12 +27,14 @@
     </form>
   </div>
 
+<hr>
+
   <div>
     <h3>Expenses:</h3>
     <% if Expense.all().any?() %>
       <ul>
         <% Expense.all().each() do |expense| %>
-          <li><a href="/expenses/<%= expenses.id() %>"><%= expense.description() %></a></li>
+          <li><a href="/expenses/<%= expense.id() %>"><%= expense.description() %></a></li>
         <% end %>
       </ul>
     <% else %>
@@ -45,7 +47,7 @@
       <% if Category.all().any?() %>
         <ul>
           <% Category.all().each() do |category| %>
-            <li><a href="/categories/<%= categories.id() %>"><%= category.category_name() %></a></li>
+            <li><a href="/categories/<%= category.id() %>"><%= category.category_name() %></a></li>
           <% end %>
         </ul>
       <% else %>
@@ -55,7 +57,3 @@
   </div>
 
 </div>
-
-<hr>
-
-<h6><a href="/add_remove">[Click Here to Add or Remove Expenses]</a></h6>

@@ -20,13 +20,14 @@
     <select class="form-control" id="expenses_id" name="expenses_id">
       <option value='' disabled selected style='display:none'>Please Choose</option>
       <% Expense.all().each() do |expense| %>
-        <% if ! expense.categories().include?(category) %>
-          <option value="<%= expense.id() %>"><%= expense.name() %></option>
+        <% if ! category.expenses().include?(expense) %>
+          <option value="<%= expense.id() %>"><%= expense.description() %></option>
         <% end %>
       <% end %>
     </select>
   </div>
-  <button type="submit" class="button">Add expense</button>
+  <button type="submit" class="button">Add Expense</button>
 </form>
+
 
 <a href="/">Back</a>

@@ -1,15 +1,15 @@
-<% category = Category.find(@id) %>
-<h1><%= category.category_name() %></h1>
+<% expense = Expense.find(@id) %>
+<h1><%= expense.description() %></h1>
 
-<h3>This category includes the following expenses:</h3>
-<% if category.expenses().any?() %>
+<h3>This expense includes the following categories:</h3>
+<% if expense.categories().any?() %>
   <ul>
-  <% category.expenses().each() do |expense| %>
-    <li><a href="/expenses/<%= expense.id() %>"><%= expense.description() %>, <%= expense.cost() %> <%= expense.date() %> </a></li>
+  <% expense.categories().each() do |category| %>
+    <li><a href="/categories/<%= category.id() %>"><%= category.category_name() %> </a></li>
   <% end %>
   </ul>
 <% else %>
-  This category is empty
+  This list of categories is empty
 <% end %>
 
 <hr>
@@ -28,5 +28,6 @@
   </div>
   <button type="submit" class="button">Add Category</button>
 </form>
+
 
 <a href="/">Back</a>
